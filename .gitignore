@@ -1,0 +1,5 @@
+ppdbrebase/bin/*
+ppdbrebase/obj/*
+ppdbrebase/packages/*
+ppdbrebase/.vs/ppdbrebase/v14/.suo
+*~

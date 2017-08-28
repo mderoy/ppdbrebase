@@ -1,0 +1,3 @@
+[submodule "external/UnityOptions"]
+	path = external/UnityOptions
+	url = git@github.com:Unity-Technologies/UnityOptions.git
