@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace ppdbrebase
             if (Options.InputFile != null)
             {
                 var inputFile = Options.InputFile.ToNPath();
+                Directory.SetCurrentDirectory(inputFile.Parent);
                 Console.WriteLine("Rebasing Symbols In " + inputFile);
                 if (!RebasePaths.RebaseSymbolFile(inputFile))
                 {
@@ -29,6 +31,7 @@ namespace ppdbrebase
             }
             else if (Options.InputDir != null)
             {
+                Directory.SetCurrentDirectory(Options.InputDir);
                 foreach (var inputFile in Options.InputDir.ToNPath().Files("*.pdb", Options.Recursive))
                 {
                     Console.WriteLine("Rebasing Symbols In " + inputFile);
