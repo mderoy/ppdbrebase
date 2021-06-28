@@ -33,12 +33,16 @@ namespace ppdbrebase.Utilities
         [HelpDetails("Specifies The Delimiter to rebase (Default Windows)")]
         public static RebasePaths.PathStyle NewPathStyle;
 
+        [HelpDetails("Equivalent to --old-base=/ --new-base=\\wsl$\\Ubuntu-18.04")]
+        public static bool Wsl2Rebase;
+
         public static void SetToDefaults()
         {
             InputFile = null;
             InputDir = null;
             Recursive = false;
             WslRebase = false;
+            Wsl2Rebase = false;
             OldBase = null;
             NewBase = null;
             NewPathStyle = RebasePaths.PathStyle.Windows;
@@ -72,10 +76,15 @@ namespace ppdbrebase.Utilities
                 return false;
             }
 
-            if (WslRebase)
+            if (WslRebase || Wsl2Rebase)
             {
-                const string WindowsStylePathHeader = "C:\\";
-                const string WindowsSubsystemForLinuxStylePathHeader = "/mnt/c/";
+                string WindowsStylePathHeader = "C:\\";
+                string WindowsSubsystemForLinuxStylePathHeader = "/mnt/c/";
+                if (Wsl2Rebase)
+                {
+                    WindowsStylePathHeader = "\\\\wsl$\\Ubuntu-20.04\\";
+                    WindowsSubsystemForLinuxStylePathHeader = "/";
+                }
 
                 if (OldBase != null)
                 {
